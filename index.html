@@ -91,14 +91,40 @@
         // --- Components ---
         const PlantModal = ({ plant, onClose }) => {
             if (!plant) return null;
+
+            const handleSpeak = (e) => {
+                e.stopPropagation();
+                if ('speechSynthesis' in window) {
+                    window.speechSynthesis.cancel(); // Stop any current speech
+                    const utteranceHebrew = new SpeechSynthesisUtterance(plant.name);
+                    utteranceHebrew.lang = 'he-IL';
+                    
+                    const utteranceLatin = new SpeechSynthesisUtterance(plant.scientificName);
+                    utteranceLatin.lang = 'en-US';
+
+                    window.speechSynthesis.speak(utteranceHebrew);
+                    window.speechSynthesis.speak(utteranceLatin);
+                } else {
+                    alert("הדפדפן שלך לא תומך בהקראת טקסט 😢");
+                }
+            };
+
             return (
-                <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50 fade-in" onClick={onClose}>
-                    <div className="bg-white rounded-3xl p-6 max-w-lg w-full shadow-2xl overflow-y-auto max-h-[90vh]" onClick={e => e.stopPropagation()}>
+                <div className="fixed inset-0 bg-black bg-opacity-60 flex items-end md:items-center justify-center p-0 md:p-4 z-50 fade-in" onClick={onClose}>
+                    <div className="bg-white rounded-t-3xl md:rounded-3xl p-6 max-w-lg w-full shadow-2xl overflow-y-auto max-h-[85vh] md:max-h-[90vh]" onClick={e => e.stopPropagation()}>
+                        {/* Mobile drag handle indicator */}
+                        <div className="w-12 h-1.5 bg-gray-300 rounded-full mx-auto mb-4 md:hidden"></div>
+                        
                         <div className="flex justify-between items-start mb-4">
-                            <h2 className="text-3xl font-bold text-teal-800 flex items-center gap-2">{plant.icon} {plant.name}</h2>
-                            <button onClick={onClose} className="text-gray-500 hover:text-red-500"><Icon name="x" className="w-6 h-6" /></button>
+                            <h2 className="text-2xl md:text-3xl font-bold text-teal-800 flex flex-wrap items-center gap-2">
+                                <span>{plant.icon} {plant.name}</span>
+                                <button onClick={handleSpeak} className="ml-auto bg-teal-50 p-2 rounded-full text-teal-600 hover:bg-teal-100 transition-colors shadow-sm active:scale-95" title="הקרא שם">
+                                    <Icon name="volume-2" className="w-5 h-5" />
+                                </button>
+                            </h2>
+                            <button onClick={onClose} className="text-gray-400 hover:text-red-500 bg-gray-50 p-2 rounded-full"><Icon name="x" className="w-5 h-5" /></button>
                         </div>
-                        <p className="text-gray-500 italic mb-4 text-lg">{plant.scientificName} | {plant.family}</p>
+                        <p className="text-gray-500 italic mb-4 text-base md:text-lg">{plant.scientificName} | {plant.family}</p>
 
                         <div className="w-full h-48 mb-4 rounded-2xl overflow-hidden shadow-inner border border-gray-100">
                             <img src={plant.imageUrl} alt={plant.name} className="w-full h-full object-cover hover:scale-105 transition-transform duration-500" />
