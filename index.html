@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>אפליקציה בוטנית חינוכית</title>
+    
+    <!-- React & ReactDOM -->
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    
+    <!-- Babel for JSX -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <!-- Google Fonts: Varela Round -->
+    <link href="https://fonts.googleapis.com/css2?family=Varela+Round&display=swap" rel="stylesheet">
+
+    <style>
+        body {
+            font-family: 'Varela Round', sans-serif;
+            background-color: #fdfbf7; /* Pastel background */
+            color: #333;
+        }
+        
+        .pastel-card {
+            background: linear-gradient(135deg, #e0f2f1 0%, #b2dfdb 100%);
+        }
+
+        .pastel-accent {
+            background-color: #ffd54f;
+        }
+
+        .fade-in {
+            animation: fadeIn 0.5s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        pastel: {
+                            green: '#A8E6CF',
+                            blue: '#DCEDC1',
+                            pink: '#FFD3B6',
+                            orange: '#FFAAA5',
+                            red: '#FF8B94',
+                            yellow: '#FDFFB6'
+                        }
+                    },
+                    borderRadius: {
+                        '3xl': '1.5rem',
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="min-h-screen pb-10">
+    <div id="root"></div>
+
+    <script type="text/babel">
+        const { useState, useEffect, useMemo } = React;
+
+        // --- Database ---
+        const plantDatabase = [
+            {
+                id: 1, name: 'פילודנדרון פינק פרינסס', scientificName: 'Philodendron erubescens', family: 'לופיים', category: 'אקזוטי', 
+                water: 2, sun: 2, history: 'צמח טרופי מיערות קולומביה שזכה לפופולריות רבה בזכות עליו הוורודים.',
+                uses: 'צמח נוי ביתי מבוקש מאוד.', soil: 'תערובת עציצים מנוקזת היטב ואוורירית.', propagation: 'ייחורי גבעול עם שורשי אוויר.', tip: 'שמרו על לחות גבוהה לקבלת צבעים עזים.', icon: '🪴'
+            },
+            {
+                id: 2, name: 'מונסטרה אדנסוני (מגוונת)', scientificName: 'Monstera adansonii', family: 'לופיים', category: 'אקזוטי', 
+                water: 3, sun: 2, history: 'ילידת מרכז ודרום אמריקה. זן נדיר עם כתמים לבנים.',
+                uses: 'טיפוס על עמוד טחב או צמח משתפל.', soil: 'אדמה עשירה בחומר אורגני.', propagation: 'ייחורים במים.', tip: 'דורש יותר אור מזנים רגילים בשל החלקים הלבנים נטולי הכלורופיל.', icon: '🌿'
+            },
+            {
+                id: 3, name: 'ציפור גן עדן', scientificName: 'Strelitzia reginae', family: 'סטרליציים', category: 'נפוץ', 
+                water: 3, sun: 3, history: 'מקורו בדרום אפריקה, נקרא על שם פרחיו המזכירים ציפור צבעונית.',
+                uses: 'גינון חוץ ופנים, פרחי קטיף.', soil: 'אדמה כבדה ועשירה.', propagation: 'חלוקת שורשים.', tip: 'צמח בוגר (בן 4-5 שנים) נדרש כדי להפריח.', icon: '🌺'
+            },
+            {
+                id: 4, name: 'ורד המדבר', scientificName: 'Adenium obesum', family: 'הרדופיים', category: 'סוקולנט', 
+                water: 1, sun: 3, history: 'מקורו באזורים הצחיחים של אפריקה וחצי האי ערב.',
+                uses: 'צמח בונסאי פופולרי.', soil: 'תערובת קקטוסים סופר-מנוקזת.', propagation: 'זרעים או ייחורים.', tip: 'היזהרו מהמוהל החלבי - הוא רעיל.', icon: '🏜️'
+            },
+            {
+                id: 5, name: 'מימוזה ביישנית', scientificName: 'Mimosa pudica', family: 'קטניות', category: 'נדיר', 
+                water: 3, sun: 3, history: 'צמח מיוחד מדרום ומרכז אמריקה שעליו נסגרים במגע.',
+                uses: 'צמח חינוכי לילדים וחובבי בוטניקה.', soil: 'אדמה לחה ומנוקזת.', propagation: 'זריעה מזרעים.', tip: 'אל תגעו בעלים יותר מדי, זה גוזל מהצמח אנרגיה.', icon: '🌱'
+            },
+            {
+                id: 6, name: 'ענב ורוד (מדינילה מרהיבה)', scientificName: 'Medinilla magnifica', family: 'מלסטומיים', category: 'אקזוטי', 
+                water: 2, sun: 2, history: 'אפיפיט טרופי מהפיליפינים. שימש כפרח מלכותי בבלגיה.',
+                uses: 'צמח בית יוקרתי.', soil: 'אדמת סחלבים קלה.', propagation: 'ייחורים בתנאי לחות קיצוניים.', tip: 'צריך לחות מאוד גבוהה כדי לפרוח.', icon: '🍇'
+            },
+            {
+                id: 7, name: 'אלוורה', scientificName: 'Aloe vera', family: 'שושניים', category: 'נפוץ', 
+                water: 1, sun: 3, history: 'צמח עתיק ששימש תרבויות רבות למטרות רפואיות.',
+                uses: 'ריפוי כוויות וטיפוח העור.', soil: 'תערובת קקטוסים מחולחלת.', propagation: 'הפרדת חוטרים.', tip: 'אל תשקו לעיתים קרובות, במיוחד בחורף.', icon: '🌵'
+            },
+            {
+                id: 8, name: 'פוטוס זהוב', scientificName: 'Epipremnum aureum', family: 'לופיים', category: 'נפוץ', 
+                water: 2, sun: 1, history: 'יליד איי שלמה, אחד מצמחי הבית העמידים ביותר.',
+                uses: 'טיהור אוויר ועיצוב פנים.', soil: 'כל אדמת עציצים סטנדרטית.', propagation: 'ייחורי מים קלים במיוחד.', tip: 'הוא יכול לשרוד כמעט בחושך מוחלט, אך יאבד מגוונו.', icon: '🍃'
+            }
+        ];
+
+        // --- Icons ---
+        const Icon = ({ name, className }) => {
+            useEffect(() => {
+                lucide.createIcons();
+            });
+            return <i data-lucide={name} className={className}></i>;
+        };
+
+        // --- Components ---
+        const PlantModal = ({ plant, onClose }) => {
+            if (!plant) return null;
+            return (
+                <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50 fade-in" onClick={onClose}>
+                    <div className="bg-white rounded-3xl p-6 max-w-lg w-full shadow-2xl overflow-y-auto max-h-[90vh]" onClick={e => e.stopPropagation()}>
+                        <div className="flex justify-between items-start mb-4">
+                            <h2 className="text-3xl font-bold text-teal-800 flex items-center gap-2">{plant.icon} {plant.name}</h2>
+                            <button onClick={onClose} className="text-gray-500 hover:text-red-500"><Icon name="x" className="w-6 h-6" /></button>
+                        </div>
+                        <p className="text-gray-500 italic mb-4 text-lg">{plant.scientificName} | {plant.family}</p>
+                        
+                        <div className="grid grid-cols-2 gap-4 mb-4">
+                            <div className="bg-pastel-blue p-3 rounded-2xl">
+                                <span className="block font-bold mb-1"><Icon name="droplets" className="inline w-4 h-4 mr-1"/> מים (1-3)</span>
+                                {Array.from({length: plant.water}).map((_,i) => '💧').join('')}
+                            </div>
+                            <div className="bg-pastel-yellow p-3 rounded-2xl">
+                                <span className="block font-bold mb-1"><Icon name="sun" className="inline w-4 h-4 mr-1"/> שמש (1-3)</span>
+                                {Array.from({length: plant.sun}).map((_,i) => '☀️').join('')}
+                            </div>
+                        </div>
+
+                        <div className="space-y-3 text-gray-700">
+                            <p><strong>קטגוריה:</strong> <span className="inline-block bg-pastel-pink px-2 py-1 rounded-full text-sm">{plant.category}</span></p>
+                            <p><strong>היסטוריה:</strong> {plant.history}</p>
+                            <p><strong>שימושים:</strong> {plant.uses}</p>
+                            <p><strong>אדמה מומלצת:</strong> {plant.soil}</p>
+                            <p><strong>ריבוי:</strong> {plant.propagation}</p>
+                            <div className="bg-pastel-green p-4 rounded-3xl border border-green-200 mt-4 shadow-sm">
+                                <strong>💡 טיפ בוטני:</strong> {plant.tip}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            );
+        };
+
+        const PlantCatalog = ({ plants }) => {
+            const [searchTerm, setSearchTerm] = useState('');
+            const [selectedCategory, setSelectedCategory] = useState('הכל');
+            const [selectedPlant, setSelectedPlant] = useState(null);
+
+            const categories = ['הכל', ...new Set(plants.map(p => p.category))];
+
+            const filteredPlants = useMemo(() => {
+                return plants.filter(p => {
+                    const matchSearch = p.name.includes(searchTerm) || p.scientificName.toLowerCase().includes(searchTerm.toLowerCase());
+                    const matchCat = selectedCategory === 'הכל' || p.category === selectedCategory;
+                    return matchSearch && matchCat;
+                });
+            }, [searchTerm, selectedCategory, plants]);
+
+            return (
+                <div className="fade-in">
+                    <div className="flex flex-col md:flex-row gap-4 mb-8">
+                        <div className="relative flex-1">
+                            <Icon name="search" className="absolute right-4 top-3 text-gray-400" />
+                            <input 
+                                type="text" 
+                                placeholder="חפש צמחים (עברית או אנגלית)..." 
+                                className="w-full pl-4 pr-12 py-3 rounded-3xl border-2 border-pastel-green focus:outline-none focus:border-teal-500 shadow-sm"
+                                value={searchTerm}
+                                onChange={e => setSearchTerm(e.target.value)}
+                            />
+                        </div>
+                        <div className="flex gap-2 overflow-x-auto pb-2">
+                            {categories.map(cat => (
+                                <button 
+                                    key={cat} 
+                                    className={`px-6 py-2 rounded-3xl whitespace-nowrap transition-colors ${selectedCategory === cat ? 'bg-teal-600 text-white shadow-md' : 'bg-white border-2 border-teal-100 hover:bg-pastel-green'}`}
+                                    onClick={() => setSelectedCategory(cat)}
+                                >
+                                    {cat}
+                                </button>
+                            ))}
+                        </div>
+                    </div>
+
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                        {filteredPlants.map(plant => (
+                            <div key={plant.id} onClick={() => setSelectedPlant(plant)} className="bg-white rounded-3xl p-5 shadow-lg hover:shadow-xl transition-shadow cursor-pointer border border-gray-100 transform hover:-translate-y-1">
+                                <div className="text-5xl text-center mb-4 bg-pastel-green rounded-full w-20 h-20 mx-auto flex items-center justify-center shadow-inner">{plant.icon}</div>
+                                <h3 className="text-xl font-bold text-center text-teal-900 mb-1">{plant.name}</h3>
+                                <p className="text-center text-gray-400 text-sm mb-3">{plant.scientificName}</p>
+                                <div className="flex justify-between items-center text-sm">
+                                    <span className="bg-pastel-pink text-pink-900 px-3 py-1 rounded-full">{plant.category}</span>
+                                    <span className="text-gray-500"><Icon name="info" className="w-4 h-4 inline" /> פרטים</span>
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+
+                    {filteredPlants.length === 0 && (
+                        <div className="text-center py-10 text-gray-500 text-xl">
+                            לא נמצאו צמחים התואמים לחיפוש 😢
+                        </div>
+                    )}
+
+                    <PlantModal plant={selectedPlant} onClose={() => setSelectedPlant(null)} />
+                </div>
+            );
+        };
+
+        const GrowthSimulator = ({ plants }) => {
+            const [selectedId, setSelectedId] = useState(plants[0].id);
+            const [waterLvl, setWaterLvl] = useState(0);
+            const [sunLvl, setSunLvl] = useState(0);
+            const [status, setStatus] = useState(null);
+
+            const plant = plants.find(p => p.id == selectedId);
+
+            const handleSimulate = () => {
+                let msg = '';
+                let type = '';
+
+                if (waterLvl === plant.water && sunLvl === plant.sun) {
+                    msg = 'שילוב מושלם! הצמח משגשג ופורח 🌸';
+                    type = 'success';
+                } else if (waterLvl > plant.water + 1) {
+                    msg = 'יותר מדי מים! השורשים נרקבים 🥀';
+                    type = 'error';
+                } else if (waterLvl < plant.water - 1) {
+                    msg = 'הצמח צמא מדי! העלים מתייבשים 🍂';
+                    type = 'error';
+                } else if (sunLvl > plant.sun) {
+                    msg = 'יותר מדי שמש! העלים נשרפים 🔥';
+                    type = 'error';
+                } else if (sunLvl < plant.sun - 1) {
+                    msg = 'חסר אור! הצמח לא מתפתח היטב וצבעיו דוהים 🌑';
+                    type = 'error';
+                } else {
+                    msg = 'תנאים סבירים, אך הצמח יכול לשגשג יותר בתנאים מדויקים יותר 🌱';
+                    type = 'warning';
+                }
+
+                setStatus({ msg, type });
+            };
+
+            return (
+                <div className="max-w-2xl mx-auto bg-white rounded-3xl p-8 shadow-xl fade-in border-4 border-pastel-blue">
+                    <h2 className="text-3xl font-bold text-center mb-6 text-teal-800 flex justify-center gap-3">
+                        <Icon name="flask-conical" /> סימולטור גידול בוטני
+                    </h2>
+                    
+                    <div className="mb-6">
+                        <label className="block text-gray-700 font-bold mb-2">בחר צמח לניסוי:</label>
+                        <select 
+                            className="w-full p-3 rounded-2xl border-2 border-pastel-green focus:outline-none"
+                            value={selectedId}
+                            onChange={(e) => { setSelectedId(e.target.value); setStatus(null); }}
+                        >
+                            {plants.map(p => <option key={p.id} value={p.id}>{p.icon} {p.name}</option>)}
+                        </select>
+                    </div>
+
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
+                        <div className="bg-blue-50 p-6 rounded-3xl text-center">
+                            <h3 className="font-bold text-blue-800 mb-4 text-xl"><Icon name="droplets" className="inline"/> רמת השקיה</h3>
+                            <input type="range" min="0" max="6" value={waterLvl} onChange={e => setWaterLvl(Number(e.target.value))} className="w-full accent-blue-500 mb-2"/>
+                            <div className="text-3xl font-bold text-blue-600">{waterLvl}</div>
+                        </div>
+                        <div className="bg-yellow-50 p-6 rounded-3xl text-center">
+                            <h3 className="font-bold text-yellow-800 mb-4 text-xl"><Icon name="sun" className="inline"/> חשיפה לשמש</h3>
+                            <input type="range" min="0" max="6" value={sunLvl} onChange={e => setSunLvl(Number(e.target.value))} className="w-full accent-yellow-500 mb-2"/>
+                            <div className="text-3xl font-bold text-yellow-600">{sunLvl}</div>
+                        </div>
+                    </div>
+
+                    <button 
+                        onClick={handleSimulate}
+                        className="w-full bg-teal-600 hover:bg-teal-700 text-white font-bold py-4 rounded-3xl text-xl transition-all shadow-lg hover:shadow-xl transform hover:-translate-y-1"
+                    >
+                        בדוק תוצאות
+                    </button>
+
+                    {status && (
+                        <div className={`mt-6 p-6 rounded-3xl text-center text-xl font-bold fade-in shadow-inner ${status.type === 'success' ? 'bg-green-100 text-green-800 border-2 border-green-300' : status.type === 'error' ? 'bg-red-100 text-red-800 border-2 border-red-300' : 'bg-yellow-100 text-yellow-800 border-2 border-yellow-300'}`}>
+                            {status.msg}
+                        </div>
+                    )}
+                </div>
+            );
+        };
+
+        const AdvancedTrivia = ({ plants }) => {
+            const [currentQ, setCurrentQ] = useState(0);
+            const [score, setScore] = useState(0);
+            const [showResult, setShowResult] = useState(false);
+            const [questions, setQuestions] = useState([]);
+
+            useEffect(() => {
+                // Generate questions dynamically
+                const qList = [];
+                // Q1
+                let p1 = plants[Math.floor(Math.random() * plants.length)];
+                qList.push({
+                    q: `לאיזו משפחה בוטנית שייך ${p1.name}?`,
+                    opts: [p1.family, 'סחלביים', 'ורדיים', 'שפתניים'].sort(() => Math.random() - 0.5),
+                    ans: p1.family
+                });
+                // Q2
+                let p2 = plants.find(p => p.water === 1) || plants[0];
+                qList.push({
+                    q: `איזה מהצמחים הבאים דורש מעט מאוד מים (דרגה 1)?`,
+                    opts: [p2.name, plants.find(p => p.water > 1)?.name || 'פוטוס', 'ענב ורוד', 'מונסטרה אדנסוני'].sort(() => Math.random() - 0.5),
+                    ans: p2.name
+                });
+                // Q3
+                let p3 = plants[Math.floor(Math.random() * plants.length)];
+                qList.push({
+                    q: `מהו שמו המדעי של ${p3.name}?`,
+                    opts: [p3.scientificName, 'Ficus lyrata', 'Calathea orbifolia', 'Sansevieria trifasciata'].sort(() => Math.random() - 0.5),
+                    ans: p3.scientificName
+                });
+
+                setQuestions(qList);
+            }, [plants]);
+
+            const handleAns = (opt) => {
+                if (opt === questions[currentQ].ans) {
+                    setScore(s => s + 1);
+                }
+                if (currentQ < questions.length - 1) {
+                    setCurrentQ(q => q + 1);
+                } else {
+                    setShowResult(true);
+                }
+            };
+
+            const reset = () => {
+                setCurrentQ(0);
+                setScore(0);
+                setShowResult(false);
+                // Simple re-render will keep the same questions, ideally we'd re-generate them.
+            };
+
+            if (questions.length === 0) return <div>טוען חידון...</div>;
+
+            return (
+                <div className="max-w-xl mx-auto bg-white rounded-3xl p-8 shadow-2xl fade-in text-center border-t-8 border-pastel-pink">
+                    <h2 className="text-3xl font-bold mb-6 text-pink-800"><Icon name="brain" className="inline mb-1"/> חידון בוטניקה מתקדם</h2>
+                    
+                    {!showResult ? (
+                        <div>
+                            <p className="text-gray-500 mb-2">שאלה {currentQ + 1} מתוך {questions.length}</p>
+                            <h3 className="text-2xl font-bold text-gray-800 mb-8">{questions[currentQ].q}</h3>
+                            <div className="space-y-4">
+                                {questions[currentQ].opts.map((opt, i) => (
+                                    <button 
+                                        key={i}
+                                        onClick={() => handleAns(opt)}
+                                        className="w-full bg-pastel-blue hover:bg-teal-200 text-teal-900 font-bold py-4 rounded-3xl text-lg transition-colors shadow-sm"
+                                    >
+                                        {opt}
+                                    </button>
+                                ))}
+                            </div>
+                        </div>
+                    ) : (
+                        <div className="py-10">
+                            <h3 className="text-4xl font-bold text-teal-600 mb-4">סיימת! 🎉</h3>
+                            <p className="text-2xl mb-8">הציון שלך: {score} / {questions.length}</p>
+                            <button onClick={reset} className="bg-pink-500 hover:bg-pink-600 text-white font-bold py-3 px-8 rounded-full shadow-lg transition-all">
+                                נסה שוב
+                            </button>
+                        </div>
+                    )}
+                </div>
+            );
+        };
+
+        const App = () => {
+            const [activeTab, setActiveTab] = useState('catalog');
+
+            return (
+                <div>
+                    <header className="bg-teal-800 text-white p-8 rounded-b-[3rem] shadow-xl mb-10 text-center">
+                        <h1 className="text-5xl font-bold mb-4 flex justify-center items-center gap-4">
+                            <Icon name="leaf" className="w-12 h-12 text-pastel-green" /> 
+                            בוטניקה-פדיה
+                        </h1>
+                        <p className="text-teal-200 text-lg">חקור, למד וגדל את הצמחים המיוחדים ביותר בעולם</p>
+                    </header>
+
+                    <nav className="flex justify-center gap-4 mb-10 px-4">
+                        <button onClick={() => setActiveTab('catalog')} className={`px-8 py-3 rounded-full font-bold transition-all shadow-md flex items-center gap-2 ${activeTab === 'catalog' ? 'bg-teal-600 text-white transform scale-105' : 'bg-white text-teal-800 hover:bg-teal-50'}`}>
+                            <Icon name="library" /> קטלוג
+                        </button>
+                        <button onClick={() => setActiveTab('simulator')} className={`px-8 py-3 rounded-full font-bold transition-all shadow-md flex items-center gap-2 ${activeTab === 'simulator' ? 'bg-teal-600 text-white transform scale-105' : 'bg-white text-teal-800 hover:bg-teal-50'}`}>
+                            <Icon name="sprout" /> סימולטור
+                        </button>
+                        <button onClick={() => setActiveTab('trivia')} className={`px-8 py-3 rounded-full font-bold transition-all shadow-md flex items-center gap-2 ${activeTab === 'trivia' ? 'bg-teal-600 text-white transform scale-105' : 'bg-white text-teal-800 hover:bg-teal-50'}`}>
+                            <Icon name="gamepad-2" /> חידון
+                        </button>
+                    </nav>
+
+                    <main className="container mx-auto px-4">
+                        {activeTab === 'catalog' && <PlantCatalog plants={plantDatabase} />}
+                        {activeTab === 'simulator' && <GrowthSimulator plants={plantDatabase} />}
+                        {activeTab === 'trivia' && <AdvancedTrivia plants={plantDatabase} />}
+                    </main>
+                </div>
+            );
+        };
+
+        const root = ReactDOM.createRoot(document.getElementById('root'));
+        root.render(<App />);
+    </script>
+</body>
+</html>
