@@ -31,8 +31,14 @@ Because this app uses a CDN-based architecture, there is zero setup required.
 2. Simply double-click `index.html` to open it in any modern web browser.
 3. Enjoy!
 
-## 🌍 How to Host (Free)
+## 🌍 How to Host (Free via GitHub Pages)
 
-This application is a pure "Static Site", meaning it can be hosted instantly for free.
-*   **GitHub Pages**: Push this repository to GitHub and enable GitHub Pages in the repository settings from the `main` branch.
-*   **Netlify Drop**: Simply drag and drop the project folder into [Netlify Drop](https://app.netlify.com/drop) to get an instant live URL.
+This project is built as a pure "Static Site", making it perfectly optimized for **GitHub Pages**.
+
+To host it for free:
+1. Push this repository to GitHub.
+2. Go to your repository **Settings** on GitHub.
+3. On the left sidebar, click **Pages**.
+4. Under "Build and deployment", set the source to **Deploy from a branch**.
+5. Select the `main` branch and `/root` folder, then click **Save**.
+6. Wait 1-2 minutes, and your live Botanical App URL will be ready at the top of the Pages settings!
