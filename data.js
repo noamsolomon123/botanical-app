@@ -13,7 +13,7 @@ const plantDatabase = [
         "propagation": "ייחורי גבעול עם שורשי אוויר.",
         "tip": "שמרו על לחות גבוהה לקבלת צבעים עזים.",
         "icon": "🪴",
-        "imageUrl": "https://images.unsplash.com/random/600x400/?Philodendron%20erubescens,plant&sig=1",
+        "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c7/Philodendron_erubescens_-_Leaves.jpg/960px-Philodendron_erubescens_-_Leaves.jpg",
         "health": "רעיל לבליעה לחיות מחמד ובני אדם (מכיל קריסטלים של אוקסלט הסידן). מגע עם המוהל עלול לגרות את העור."
     },
     {
@@ -30,7 +30,7 @@ const plantDatabase = [
         "propagation": "ייחורים במים.",
         "tip": "דורש יותר אור מזנים רגילים בשל החלקים הלבנים נטולי הכלורופיל.",
         "icon": "🌿",
-        "imageUrl": "https://images.unsplash.com/random/600x400/?monstera%20plant,plant&sig=2",
+        "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/fb/Monstera_adansonii_79319231.jpg/960px-Monstera_adansonii_79319231.jpg",
         "health": "מטהר אוויר מזיהומים קלים, אך רעיל לבליעה (אוקסלט הסידן). יש להרחיק מכלבים וחתולים."
     },
     {
@@ -47,7 +47,7 @@ const plantDatabase = [
         "propagation": "חלוקת שורשים.",
         "tip": "צמח בוגר (בן 4-5 שנים) נדרש כדי להפריח.",
         "icon": "🌺",
-        "imageUrl": "https://images.unsplash.com/random/600x400/?bird%20of%20paradise%20flower,plant&sig=3",
+        "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/55/Bird_of_Paradise_flower.JPG/960px-Bird_of_Paradise_flower.JPG",
         "health": "רעיל קלות לחיות מחמד במקרה של אכילת העלים או הפרחים (גורם להקאות)."
     },
     {
@@ -64,7 +64,7 @@ const plantDatabase = [
         "propagation": "זרעים או ייחורים.",
         "tip": "היזהרו מהמוהל החלבי - הוא רעיל.",
         "icon": "🏜️",
-        "imageUrl": "https://images.unsplash.com/random/600x400/?Adenium%20obesum,plant&sig=4",
+        "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4a/Adenium_Obesum_Flower_Side_Macro_Mar22_D72_23052-58_ZS_P.jpg/960px-Adenium_Obesum_Flower_Side_Macro_Mar22_D72_23052-58_ZS_P.jpg",
         "health": "רעיל מאוד! המוהל החלבי מכיל רעלנים הפוגעים בלב. השתמשו בכפפות בעת הגיזום."
     },
     {
@@ -81,7 +81,7 @@ const plantDatabase = [
         "propagation": "זריעה מזרעים.",
         "tip": "אל תגעו בעלים יותר מדי, זה גוזל מהצמח אנרגיה.",
         "icon": "🌱",
-        "imageUrl": "https://images.unsplash.com/random/600x400/?Mimosa%20pudica,plant&sig=5",
+        "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/26/Mimosa_pudica_in_September_month.jpg/960px-Mimosa_pudica_in_September_month.jpg",
         "health": "בטוח יחסית, אך מכיל אלקלואידים בכמויות קטנות. ברפואה המסורתית ההודית משמש לריפוי פצעים."
     },
     {
@@ -98,7 +98,7 @@ const plantDatabase = [
         "propagation": "ייחורים בתנאי לחות קיצוניים.",
         "tip": "צריך לחות מאוד גבוהה כדי לפרוח.",
         "icon": "🍇",
-        "imageUrl": "https://images.unsplash.com/random/600x400/?Medinilla%20magnifica,plant&sig=6",
+        "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a2/Medinilla_magnifica_flor.jpg/960px-Medinilla_magnifica_flor.jpg",
         "health": "נחשב בטוח ולא רעיל לחיות מחמד ולבני אדם."
     },
     {
@@ -115,7 +115,7 @@ const plantDatabase = [
         "propagation": "הפרדת חוטרים.",
         "tip": "אל תשקו לעיתים קרובות, במיוחד בחורף.",
         "icon": "🌵",
-        "imageUrl": "https://images.unsplash.com/random/600x400/?aloe%20vera,plant&sig=7",
+        "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4b/Aloe_vera_flower_inset.png/960px-Aloe_vera_flower_inset.png",
         "health": "ידוע בסגולותיו לריפוי כוויות, הרגעת העור וטיפוח. הקליפה החיצונית מכילה אלואין, שעלול להיות רעיל לחיות מחמד."
     },
     {
@@ -132,7 +132,7 @@ const plantDatabase = [
         "propagation": "ייחורי מים קלים במיוחד.",
         "tip": "הוא יכול לשרוד כמעט בחושך מוחלט, אך יאבד מגוונו.",
         "icon": "🍃",
-        "imageUrl": "https://images.unsplash.com/random/600x400/?Epipremnum%20aureum,plant&sig=8",
+        "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/62/Money_Plant_%28Epipremnum_aureum%29_4.jpg/960px-Money_Plant_%28Epipremnum_aureum%29_4.jpg",
         "health": "מטהר אוויר מצוין (מסנן פורמלדהיד וקסילן), אך רעיל לחיות מחמד בשל קריסטלי סידן אוקסלט."
     },
     {
@@ -149,7 +149,7 @@ const plantDatabase = [
         "propagation": "חלוקת שורשים באביב.",
         "tip": "השתמשו רק במים מזוקקים או מי גשמים, מים רגילים יהרגו אותו.",
         "icon": "🪰",
-        "imageUrl": "https://images.unsplash.com/random/600x400/?Dionaea%20muscipula,plant&sig=9",
+        "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/37/Venus_Flytrap_showing_trigger_hairs.jpg/960px-Venus_Flytrap_showing_trigger_hairs.jpg",
         "health": "בטוח לחלוטין לחיות מחמד. לא ידוע על שימושים רפואיים."
     },
     {
@@ -166,7 +166,7 @@ const plantDatabase = [
         "propagation": "ייחורי גבעול.",
         "tip": "שמרו על לחות אוויר גבוהה מאוד סביב הכדים.",
         "icon": "🏺",
-        "imageUrl": "https://images.unsplash.com/random/600x400/?Nepenthes,plant&sig=10",
+        "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/1/12/N.macrophylla_x_lowii.jpg",
         "health": "בטוח לחיות מחמד. נוזל הכד שימש בעבר ברפואה העממית באסיה לטיפול בבעיות עיכול, אך לא מומלץ לשימוש מודרני."
     },
     {
@@ -183,7 +183,7 @@ const plantDatabase = [
         "propagation": "קיקי (שתילי אוויר).",
         "tip": "אל תתנו למים לעמוד בכתר העלים כדי למנוע ריקבון.",
         "icon": "🌸",
-        "imageUrl": "https://images.unsplash.com/random/600x400/?Phalaenopsis,plant&sig=11",
+        "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/1/1e/Phalaenopsis_philippinensis_NationalOrchidGarden-Singapore.jpg",
         "health": "בטוח לחלוטין ולא רעיל לכלבים, חתולים וילדים."
     },
     {
@@ -200,7 +200,7 @@ const plantDatabase = [
         "propagation": "ייחורים באביב.",
         "tip": "גזמו באופן קבוע כדי לשמור על צורת העץ המיניאטורי.",
         "icon": "🌳",
-        "imageUrl": "https://images.unsplash.com/random/600x400/?Ficus%20retusa,plant&sig=12",
+        "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/cf/Ficus_retusa_herbarium_sheet.jpg/960px-Ficus_retusa_herbarium_sheet.jpg",
         "health": "המוהל החלבי עלול לגרות את העור ורעיל לבליעה לחיות מחמד."
     },
     {
@@ -217,7 +217,7 @@ const plantDatabase = [
         "propagation": "זרעים.",
         "tip": "הסירו את הפרחים ברגע שהם מופיעים כדי לשמור על טעם העלים.",
         "icon": "🌿",
-        "imageUrl": "https://images.unsplash.com/random/600x400/?basil%20plant,plant&sig=13",
+        "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/97/Ocimum_basilicum_8zz.jpg/960px-Ocimum_basilicum_8zz.jpg",
         "health": "אנטי-בקטריאלי, עשיר בנוגדי חמצון, ויטמין K וברזל. מצוין לבריאות הלב."
     },
     {
@@ -234,7 +234,7 @@ const plantDatabase = [
         "propagation": "שלוחות שורש.",
         "tip": "מומלץ לגדל בעציץ נפרד, אחרת היא תשתלט על כל הגינה.",
         "icon": "🌱",
-        "imageUrl": "https://images.unsplash.com/random/600x400/?mint%20plant,plant&sig=14",
+        "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4d/Mentha_spicata-IMG_6186.jpg/960px-Mentha_spicata-IMG_6186.jpg",
         "health": "מרגיע את מערכת העיכול, מקל על כאבי ראש ומיגרנות, ומשפר ריכוז."
     },
     {
@@ -251,7 +251,7 @@ const plantDatabase = [
         "propagation": "חלוקה או חיתוך עלים.",
         "tip": "הדרך הכי קלה להרוג סנסיווריה היא להשקות אותה יותר מדי.",
         "icon": "🐍",
-        "imageUrl": "https://images.unsplash.com/random/600x400/?Sansevieria%20trifasciata,plant&sig=15",
+        "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/fb/Snake_Plant_%28Sansevieria_trifasciata_%27Laurentii%27%29.jpg/960px-Snake_Plant_%28Sansevieria_trifasciata_%27Laurentii%27%29.jpg",
         "health": "מטהר אוויר מעולה, פולט חמצן בלילה (מצוין לחדרי שינה). רעיל קלות לחיות מחמד."
     },
     {
@@ -268,7 +268,7 @@ const plantDatabase = [
         "propagation": "הפרדת פקעות או ייחורי עלים (תהליך איטי جدا).",
         "tip": "מעדיף הזנחה. תשקו רק כשהאדמה יבשה לחלוטין לחלוטין.",
         "icon": "🌿",
-        "imageUrl": "https://images.unsplash.com/random/600x400/?Zamioculcas%20zamiifolia,plant&sig=16",
+        "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/cf/Zamioculcas_zamiifolia_1.jpg/960px-Zamioculcas_zamiifolia_1.jpg",
         "health": "רעיל לבליעה (קריסטלי אוקסלט הסידן). יש לשטוף ידיים לאחר מגע עם מוהל הצמח."
     },
     {
@@ -285,7 +285,7 @@ const plantDatabase = [
         "propagation": "ייחורי גבעול או עלים.",
         "tip": "עליו מקבלים קצוות אדמדמים בחשיפה רבה לשמש.",
         "icon": "💰",
-        "imageUrl": "https://images.unsplash.com/random/600x400/?Crassula%20ovata,plant&sig=17",
+        "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/5/5a/Crassula_ovata_700.jpg",
         "health": "רעיל לכלבים וחתולים (גורם לדיכאון והקאות)."
     },
     {
@@ -302,7 +302,7 @@ const plantDatabase = [
         "propagation": "ייחורי אוויר.",
         "tip": "רגיש לשינויי מיקום ורוחות פרצים, העלים עלולים לנשור.",
         "icon": "🎻",
-        "imageUrl": "https://images.unsplash.com/random/600x400/?Ficus%20lyrata,plant&sig=18",
+        "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/84/Starr_031108-0130_Ficus_lyrata.jpg/960px-Starr_031108-0130_Ficus_lyrata.jpg",
         "health": "מוהל הצמח רעיל ועלול לגרום לגירוי בעור ולבעיות עיכול אם נבלע."
     },
     {
@@ -319,7 +319,7 @@ const plantDatabase = [
         "propagation": "נבגים (קשה מאוד בתנאי בית).",
         "tip": "אל תגעו בעלים הצעירים והרכים שצומחים מהמרכז, הם שבירים מאוד.",
         "icon": "🪹",
-        "imageUrl": "https://images.unsplash.com/random/600x400/?Asplenium%20nidus,plant&sig=19",
+        "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/84/Asplenium_nidus_%28Bukidnon%2C_Philippines%29_02.jpg/960px-Asplenium_nidus_%28Bukidnon%2C_Philippines%29_02.jpg",
         "health": "בטוח לחלוטין ולא רעיל. עוזר בהעלאת לחות האוויר בבית."
     },
     {
@@ -336,7 +336,7 @@ const plantDatabase = [
         "propagation": "הרכבות (לשמירת גנטיקת הפרח).",
         "tip": "דורש דישון קבוע בעונת הצמיחה כדי לתמוך בפרחים הענקיים.",
         "icon": "🌹",
-        "imageUrl": "https://images.unsplash.com/random/600x400/?Adenium%20obesum,plant&sig=20",
+        "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4a/Adenium_Obesum_Flower_Side_Macro_Mar22_D72_23052-58_ZS_P.jpg/960px-Adenium_Obesum_Flower_Side_Macro_Mar22_D72_23052-58_ZS_P.jpg",
         "health": "רעיל מאוד בדומה לוורד המדבר הרגיל. הרחיקו מהישג ידם של ילדים."
     },
     {
@@ -353,7 +353,7 @@ const plantDatabase = [
         "propagation": "חוטרים בבסיס הצמח.",
         "tip": "מושלמת לאזורים ציבוריים מכיוון שאינה דוקרת.",
         "icon": "🌵",
-        "imageUrl": "https://images.unsplash.com/random/600x400/?Agave%20attenuata,plant&sig=21",
+        "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/03/Agave_attenuata_001.JPG/960px-Agave_attenuata_001.JPG",
         "health": "המוהל עלול לגרות את העור ולגרום לדלקת מגע. פחות מסוכן מאגבות עם קוצים, אך עדיין דורש זהירות."
     },
     {
@@ -370,7 +370,7 @@ const plantDatabase = [
         "propagation": "ייחורים עם שורשי אוויר.",
         "tip": "נקו את העלים הגדולים מאבק עם מטלית לחה מדי פעם.",
         "icon": "🌴",
-        "imageUrl": "https://images.unsplash.com/random/600x400/?monstera%20plant,plant&sig=22",
+        "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2e/Monstera_deliciosa2.jpg/960px-Monstera_deliciosa2.jpg",
         "health": "הפירות הבשלים אכילים (בטעם אננס-בננה), אך שאר חלקי הצמח רעילים לבליעה."
     },
     {
@@ -387,7 +387,7 @@ const plantDatabase = [
         "propagation": "חלוקת שורשים.",
         "tip": "צמח תפילה - העלים זזים ונסגרים בלילה. רגיש מאוד ליובש ולמי ברז.",
         "icon": "🦓",
-        "imageUrl": "https://images.unsplash.com/random/600x400/?Calathea%20orbifolia,plant&sig=23",
+        "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/fa/Calathea_orbifolia_2.jpg/960px-Calathea_orbifolia_2.jpg",
         "health": "בטוח לחלוטין ולא רעיל לחיות מחמד."
     },
     {
@@ -404,7 +404,7 @@ const plantDatabase = [
         "propagation": "הפרדת פקעיות קטנות בשורשים.",
         "tip": "עלול להיכנס לתרדמת חורף ולהשיר את עליו, אל תזרקו - הפקעת חיה!",
         "icon": "🛡️",
-        "imageUrl": "https://images.unsplash.com/random/600x400/?Alocasia%20amazonica,plant&sig=24",
+        "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b1/Alocasia_macrorrhiza_-_Val_Rahmeh_-_DSC04449.JPG/960px-Alocasia_macrorrhiza_-_Val_Rahmeh_-_DSC04449.JPG",
         "health": "רעיל מאוד לבליעה (סידן אוקסלט). גורם לנפיחות בפה ובגרון."
     },
     {
@@ -421,7 +421,7 @@ const plantDatabase = [
         "propagation": "גזירה ושתילה של צמחי הבת (\"העכבישים\").",
         "tip": "עמיד גם בצל וגם בשמש חלקית. שורשיו הבשרניים אוגרים מים.",
         "icon": "🕷️",
-        "imageUrl": "https://images.unsplash.com/random/600x400/?Chlorophytum%20comosum,plant&sig=25",
+        "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b1/Hierbabuena_0611_Revised.jpg/960px-Hierbabuena_0611_Revised.jpg",
         "health": "בטוח לחלוטין לחיות מחמד. צמח מטהר אוויר מהשורה הראשונה."
     },
     {
@@ -438,7 +438,7 @@ const plantDatabase = [
         "propagation": "ייחורים או זרעים.",
         "tip": "אפשר לגזום ללא פחד כדי ליצור מראה שיחי וצפוף.",
         "icon": "☂️",
-        "imageUrl": "https://images.unsplash.com/random/600x400/?Schefflera%20actinophylla,plant&sig=26",
+        "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/b/bc/Octopus_Tree_%28Schefflera_actinophylla%29_at_Hyderabad%2C_AP_W_283.jpg",
         "health": "רעיל לחיות מחמד (עלול לגרום לגירוי חמור בפה ורעידות)."
     },
     {
@@ -455,7 +455,7 @@ const plantDatabase = [
         "propagation": "חלוקה.",
         "tip": "דרושה לחות אוויר גבוהה. מצע יבש יגרום לקצוות העלים להשחים.",
         "icon": "🙏",
-        "imageUrl": "https://images.unsplash.com/random/600x400/?Maranta%20leuconeura,plant&sig=27",
+        "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/4/4a/Maranta_leuconeura3.jpg",
         "health": "בטוח לחלוטין ואינו רעיל לילדים וחיות מחמד."
     },
     {
@@ -472,7 +472,7 @@ const plantDatabase = [
         "propagation": "ייחורי גבעול ממושכים.",
         "tip": "אל תגזמו את העוקץ עליו פרח הצמח - באותו מקום תופיע הפריחה הבאה.",
         "icon": "⭐",
-        "imageUrl": "https://images.unsplash.com/random/600x400/?Hoya%20carnosa,plant&sig=28",
+        "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ea/NKN-2007-06-13_114250_Hoya_Carnosa_%28Yvan_Leduc_author_for_Wikipedia%29.jpg/960px-NKN-2007-06-13_114250_Hoya_Carnosa_%28Yvan_Leduc_author_for_Wikipedia%29.jpg",
         "health": "בטוח לחלוטין ואינו רעיל."
     },
     {
@@ -489,7 +489,7 @@ const plantDatabase = [
         "propagation": "ייחורים למחצה-מעוצים.",
         "tip": "הפרחים מפיצים ריח יסמין חזק במיוחד בערב.",
         "icon": "👰",
-        "imageUrl": "https://images.unsplash.com/random/600x400/?Stephanotis%20floribunda,plant&sig=29",
+        "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/3/31/Stephanotis_floribunda3L._Marie.jpg",
         "health": "בטוח לגידול בסביבת חיות מחמד וילדים."
     },
     {
@@ -506,7 +506,7 @@ const plantDatabase = [
         "propagation": "ייחורי גבעול במים (מושרשים בקלות).",
         "tip": "מעדיף עציץ מעט צפוף ומים רק כשהחצי העליון של האדמה יבש.",
         "icon": "🎨",
-        "imageUrl": "https://images.unsplash.com/random/600x400/?Begonia%20maculata,plant&sig=30",
+        "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/d/df/Begonia_maculata3073316230.jpg",
         "health": "השורשים רעילים מאוד לחיות מחמד, גם העלים מכילים רעלנים המגרים את הפה."
     },
     {
@@ -523,7 +523,7 @@ const plantDatabase = [
         "propagation": "ייחורים קטנים.",
         "tip": "מתעלף בדרמטיות כשהוא צמא, אך יחזור לעצמו במהירות לאחר השקיה.",
         "icon": "🧠",
-        "imageUrl": "https://images.unsplash.com/random/600x400/?Fittonia%20albivenis,plant&sig=31",
+        "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/72/Colpfl25.jpg/960px-Colpfl25.jpg",
         "health": "בטוח לחלוטין לחיות מחמד וילדים."
     },
     {
@@ -540,7 +540,7 @@ const plantDatabase = [
         "propagation": "מוציא אינספור פקעיות סביב צמח האם.",
         "tip": "סובבו את העציץ פעם בשבוע כדי שיגדל ישר ולא ייטה לכיוון השמש.",
         "icon": "🥞",
-        "imageUrl": "https://images.unsplash.com/random/600x400/?Pilea%20peperomioides,plant&sig=32",
+        "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6d/Pilea_peperomioides_Chinese_money_plant.jpg/960px-Pilea_peperomioides_Chinese_money_plant.jpg",
         "health": "בטוח לחלוטין ולא רעיל."
     },
     {
@@ -557,7 +557,7 @@ const plantDatabase = [
         "propagation": "חלוקת חוטרים בוגרים.",
         "tip": "השקו את הצמח דרך העלה המגן הבסיסי התחתון ולא ישירות על הקרניים.",
         "icon": "🦌",
-        "imageUrl": "https://images.unsplash.com/random/600x400/?Platycerium,plant&sig=33",
+        "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/12/Platycerium_bifurcatum.jpg/960px-Platycerium_bifurcatum.jpg",
         "health": "בטוח ואינו רעיל."
     },
     {
@@ -574,7 +574,7 @@ const plantDatabase = [
         "propagation": "זרעים קטנים או ייחורי עלים.",
         "tip": "כמו הדיונאה - רק מים מזוקקים ואור שמש חזק מאוד.",
         "icon": "💧",
-        "imageUrl": "https://images.unsplash.com/random/600x400/?Drosera,plant&sig=34",
+        "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c3/Drosera_spatulata_KansaiHabit.jpg/960px-Drosera_spatulata_KansaiHabit.jpg",
         "health": "בטוח לחיות מחמד. ברפואה העממית שימש לטיפול בשיעול וברונכיט בשל חומרים מכייחים."
     },
     {
@@ -591,7 +591,7 @@ const plantDatabase = [
         "propagation": "ייחורים.",
         "tip": "הזן השחור (Burgundy) צריך פחות אור, הזן המגוון (Tineke) צריך יותר.",
         "icon": "🌲",
-        "imageUrl": "https://images.unsplash.com/random/600x400/?Ficus%20elastica,plant&sig=35",
+        "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/16/Ficus_elastica_leaves_02.JPG/960px-Ficus_elastica_leaves_02.JPG",
         "health": "המוהל הלבן (לייטקס) עלול לגרום לאלרגיות קשות בעור ולגירוי בעיניים."
     },
     {
@@ -608,7 +608,7 @@ const plantDatabase = [
         "propagation": "זרעים זעירים.",
         "tip": "משירים את עליהם פעם בשנה. בתקופה זו חל איסור מוחלט להשקות.",
         "icon": "🪨",
-        "imageUrl": "https://images.unsplash.com/random/600x400/?Lithops,plant&sig=36",
+        "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/25/Marloth-Lithops-drawing.jpg/960px-Marloth-Lithops-drawing.jpg",
         "health": "בטוח ואינו רעיל לחיות מחמד (אך חיות עלולות לאכול אותם בטעות כי הם נראים כמו אבנים)."
     },
     {
@@ -625,7 +625,7 @@ const plantDatabase = [
         "propagation": "ייחורים פשוט משתרשים בכל מגע עם מים או אדמה.",
         "tip": "צבעו הסגול יהיה חזק יותר ככל שיקבל יותר אור (אך לא שמש ישירה קופחת).",
         "icon": "🌌",
-        "imageUrl": "https://images.unsplash.com/random/600x400/?Tradescantia%20zebrina,plant&sig=37",
+        "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/f/fd/Zebrina_pendula_20060521_2_closer.jpg",
         "health": "המוהל עלול לגרום לגירוי בעור אצל כלבים וחתולים במגע מתמשך."
     },
     {
@@ -642,7 +642,7 @@ const plantDatabase = [
         "propagation": "ייחורי גבעול.",
         "tip": "הפרח מפיץ ריח של בשר רקוב כדי למשוך זבובים מאביקים.",
         "icon": "🌟",
-        "imageUrl": "https://images.unsplash.com/random/600x400/?Stapelia%20gigantea,plant&sig=38",
+        "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5d/Stapelia_gigantea00.jpg/960px-Stapelia_gigantea00.jpg",
         "health": "בטוח ואינו רעיל (הריח הרע מהפרח אינו מזיק בריאותית)."
     },
     {
@@ -659,7 +659,7 @@ const plantDatabase = [
         "propagation": "ייחורים חצי-מעוצים.",
         "tip": "לא אוהב עציצים קטנים לאורך זמן. חייב שמש מלאה בחוץ.",
         "icon": "🌿",
-        "imageUrl": "https://images.unsplash.com/random/600x400/?rosemary%20plant,plant&sig=39",
+        "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a3/Rosemary_in_bloom.JPG/960px-Rosemary_in_bloom.JPG",
         "health": "משפר זיכרון, אנטי-דלקתי, עשיר בנוגדי חמצון ומסייע לעיכול."
     },
     {
@@ -676,7 +676,7 @@ const plantDatabase = [
         "propagation": "זרעים.",
         "tip": "שתלו עמוק באדמה - הצמח מגדל שורשים לאורך כל הגבעול שקבור.",
         "icon": "🍅",
-        "imageUrl": "https://images.unsplash.com/random/600x400/?cherry%20tomato%20plant,plant&sig=40",
+        "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/89/Tomato_je.jpg/960px-Tomato_je.jpg",
         "health": "הפרי בריא מאוד (מכיל ליקופן). העלים והגבעולים רעילים לאכילה (מכילים סולנין)."
     },
     {
@@ -693,7 +693,7 @@ const plantDatabase = [
         "propagation": "שלוחות.",
         "tip": "הרחיקו את הפירות מאדמה לחה כדי שלא ירקבו.",
         "icon": "🍓",
-        "imageUrl": "https://images.unsplash.com/random/600x400/?strawberry%20plant,plant&sig=41",
+        "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/0/03/103_Fragaria_vesca_L.jpg",
         "health": "עשיר בוויטמין C ונוגדי חמצון. בטוח לחלוטין."
     },
     {
@@ -710,7 +710,7 @@ const plantDatabase = [
         "propagation": "זרעים בתנאים מיוחדים.",
         "tip": "הפרח פורח בלילה, לבן ביום הראשון וורוד ביום השני.",
         "icon": "🪷",
-        "imageUrl": "https://images.unsplash.com/random/600x400/?Victoria%20amazonica,plant&sig=42",
+        "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b4/Victoria_amazonica_edit_1.jpg/960px-Victoria_amazonica_edit_1.jpg",
         "health": "הזרעים שימשו בעבר למאכל על ידי ילידים. הצמח עצמו מוגן בקוצים חדים כתער מתחת לעלים."
     },
     {
@@ -727,7 +727,7 @@ const plantDatabase = [
         "propagation": "ייחורי עלה או גבעול.",
         "tip": "האויב מספר 1 שלו הוא השקיית יתר.",
         "icon": "💚",
-        "imageUrl": "https://images.unsplash.com/random/600x400/?Peperomia%20obtusifolia,plant&sig=43",
+        "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/19/Peperomia_obtusifolia_3-OB9.jpg/960px-Peperomia_obtusifolia_3-OB9.jpg",
         "health": "בטוח לחלוטין ואינו רעיל לחיות מחמד."
     },
     {
@@ -744,7 +744,7 @@ const plantDatabase = [
         "propagation": "מוציאים חוטרים לאחר הפריחה.",
         "tip": "השרו במים למשך חצי שעה פעם בשבוע ותנו להם להתייבש הפוך לחלוטין.",
         "icon": "💨",
-        "imageUrl": "https://images.unsplash.com/random/600x400/?Tillandsia,plant&sig=44",
+        "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6a/Tillandsia_fasciculata.jpg/960px-Tillandsia_fasciculata.jpg",
         "health": "בטוח לחלוטין ואינו רעיל."
     }
 ];
