@@ -166,6 +166,7 @@
             const [searchTerm, setSearchTerm] = useState('');
             const [selectedCategory, setSelectedCategory] = useState('הכל');
             const [selectedPlant, setSelectedPlant] = useState(null);
+            const [petSafeOnly, setPetSafeOnly] = useState(false);
 
             const categories = ['הכל', ...new Set(plants.map(p => p.category))];
 
@@ -173,7 +174,8 @@
                 let result = plants.filter(p => {
                     const matchSearch = p.name.includes(searchTerm) || p.scientificName.toLowerCase().includes(searchTerm.toLowerCase());
                     const matchCat = selectedCategory === 'הכל' || p.category === selectedCategory;
-                    return matchSearch && matchCat;
+                    const matchSafe = petSafeOnly ? p.health.includes('בטוח') : true;
+                    return matchSearch && matchCat && matchSafe;
                 });
                 
                 result.sort((a, b) => {
@@ -182,26 +184,36 @@
                 });
                 
                 return result;
-            }, [searchTerm, selectedCategory, plants]);
+            }, [searchTerm, selectedCategory, petSafeOnly, plants]);
 
             return (
                 <div className="fade-in">
-                    <div className="flex flex-col md:flex-row gap-4 mb-8">
-                        <div className="relative flex-1">
-                            <Icon name="search" className="absolute right-4 top-3 text-gray-400" />
-                            <input 
-                                type="text" 
-                                placeholder="חפש צמחים (עברית או אנגלית)..." 
-                                className="w-full pl-4 pr-12 py-3 rounded-3xl border-2 border-pastel-green focus:outline-none focus:border-teal-500 shadow-sm"
-                                value={searchTerm}
-                                onChange={e => setSearchTerm(e.target.value)}
-                            />
+                    <div className="bg-white p-4 md:p-6 rounded-3xl shadow-md mb-8 border border-pastel-green">
+                        <div className="flex flex-col md:flex-row gap-4">
+                            <div className="relative flex-1">
+                                <Icon name="search" className="absolute right-4 top-3.5 text-gray-400" />
+                                <input 
+                                    type="text" 
+                                    placeholder="חפש צמחים (עברית או אנגלית)..." 
+                                    className="w-full pl-4 pr-12 py-3 rounded-2xl bg-gray-50 border-transparent focus:bg-white focus:border-teal-500 focus:ring-2 focus:ring-teal-200 transition-all outline-none"
+                                    value={searchTerm}
+                                    onChange={e => setSearchTerm(e.target.value)}
+                                />
+                            </div>
+                            <button 
+                                onClick={() => setPetSafeOnly(!petSafeOnly)}
+                                className={`px-6 py-3 rounded-2xl font-bold flex items-center justify-center gap-2 transition-all whitespace-nowrap ${petSafeOnly ? 'bg-green-100 text-green-800 border-2 border-green-500 shadow-sm' : 'bg-gray-50 text-gray-500 border-2 border-transparent hover:bg-gray-100'}`}
+                            >
+                                <Icon name="paw-print" className="w-5 h-5" />
+                                בטוח לחיות מחמד
+                            </button>
                         </div>
-                        <div className="flex gap-2 overflow-x-auto pb-2">
+                        
+                        <div className="flex gap-2 overflow-x-auto pb-2 mt-4 pt-4 border-t border-gray-100 scrollbar-hide">
                             {categories.map(cat => (
                                 <button 
                                     key={cat} 
-                                    className={`px-6 py-2 rounded-3xl whitespace-nowrap transition-colors ${selectedCategory === cat ? 'bg-teal-600 text-white shadow-md' : 'bg-white border-2 border-teal-100 hover:bg-pastel-green'}`}
+                                    className={`px-5 py-1.5 rounded-full whitespace-nowrap transition-colors text-sm font-bold ${selectedCategory === cat ? 'bg-teal-600 text-white shadow-md' : 'bg-gray-100 text-gray-600 hover:bg-teal-100 hover:text-teal-800'}`}
                                     onClick={() => setSelectedCategory(cat)}
                                 >
                                     {cat}
