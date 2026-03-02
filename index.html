@@ -388,69 +388,115 @@
             const [score, setScore] = useState(0);
             const [showResult, setShowResult] = useState(false);
             const [questions, setQuestions] = useState([]);
+            const [feedback, setFeedback] = useState(null); // 'correct' or 'wrong'
+
+            const generateQuestions = () => {
+                const qList = [];
+                const getRandomPlants = (count, exclude) => {
+                    const pool = plants.filter(p => p.name !== exclude);
+                    const result = [];
+                    for(let i=0; i<count; i++) {
+                        if(pool.length === 0) break;
+                        const idx = Math.floor(Math.random() * pool.length);
+                        result.push(pool.splice(idx, 1)[0]);
+                    }
+                    return result;
+                };
+
+                for(let i=0; i<5; i++) {
+                    const p = plants[Math.floor(Math.random() * plants.length)];
+                    const qType = Math.floor(Math.random() * 5);
+                    
+                    let qText, ans, wrongOpts;
+
+                    if (qType === 0) {
+                        qText = `לאיזו משפחה בוטנית שייך הצמח ${p.name}?`;
+                        ans = p.family;
+                        wrongOpts = ['סחלביים', 'ורדיים', 'שפתניים', 'לופיים', 'אספרגיים', 'צבריים'].filter(f => f !== ans).sort(() => Math.random() - 0.5).slice(0, 3);
+                    } else if (qType === 1) {
+                        qText = `מהו שמו המדעי של ${p.name}?`;
+                        ans = p.scientificName;
+                        wrongOpts = getRandomPlants(3, p.name).map(x => x.scientificName);
+                    } else if (qType === 2) {
+                        qText = `איזה מבין הצמחים הבאים מוגדר כ"${p.category}"?`;
+                        ans = p.name;
+                        wrongOpts = plants.filter(x => x.category !== p.category).sort(() => Math.random() - 0.5).slice(0, 3).map(x => x.name);
+                    } else if (qType === 3) {
+                        const tox = p.health.includes('רעיל') ? 'רעיל' : 'בטוח לחלוטין';
+                        qText = `האם ${p.name} בטוח לחיות מחמד או רעיל?`;
+                        ans = tox;
+                        wrongOpts = [tox === 'רעיל' ? 'בטוח לחלוטין' : 'רעיל', 'לא ידוע', 'תלוי בעונה'];
+                    } else {
+                        qText = `מיהו הצמח שעליו נאמר: "${p.history.split('.')[0]}..."?`;
+                        ans = p.name;
+                        wrongOpts = getRandomPlants(3, p.name).map(x => x.name);
+                    }
+
+                    const opts = [ans, ...wrongOpts].sort(() => Math.random() - 0.5);
+                    qList.push({ q: qText, opts, ans, image: p.imageUrl });
+                }
+                setQuestions(qList);
+            };
 
             useEffect(() => {
-                // Generate questions dynamically
-                const qList = [];
-                // Q1
-                let p1 = plants[Math.floor(Math.random() * plants.length)];
-                qList.push({
-                    q: `לאיזו משפחה בוטנית שייך ${p1.name}?`,
-                    opts: [p1.family, 'סחלביים', 'ורדיים', 'שפתניים'].sort(() => Math.random() - 0.5),
-                    ans: p1.family
-                });
-                // Q2
-                let p2 = plants.find(p => p.water === 1) || plants[0];
-                qList.push({
-                    q: `איזה מהצמחים הבאים דורש מעט מאוד מים (דרגה 1)?`,
-                    opts: [p2.name, plants.find(p => p.water > 1)?.name || 'פוטוס', 'ענב ורוד', 'מונסטרה אדנסוני'].sort(() => Math.random() - 0.5),
-                    ans: p2.name
-                });
-                // Q3
-                let p3 = plants[Math.floor(Math.random() * plants.length)];
-                qList.push({
-                    q: `מהו שמו המדעי של ${p3.name}?`,
-                    opts: [p3.scientificName, 'Ficus lyrata', 'Calathea orbifolia', 'Sansevieria trifasciata'].sort(() => Math.random() - 0.5),
-                    ans: p3.scientificName
-                });
-
-                setQuestions(qList);
+                generateQuestions();
             }, [plants]);
 
             const handleAns = (opt) => {
-                if (opt === questions[currentQ].ans) {
+                const isCorrect = opt === questions[currentQ].ans;
+                if (isCorrect) {
                     setScore(s => s + 1);
-                }
-                if (currentQ < questions.length - 1) {
-                    setCurrentQ(q => q + 1);
+                    setFeedback('correct');
                 } else {
-                    setShowResult(true);
+                    setFeedback('wrong');
                 }
+
+                setTimeout(() => {
+                    setFeedback(null);
+                    if (currentQ < questions.length - 1) {
+                        setCurrentQ(q => q + 1);
+                    } else {
+                        setShowResult(true);
+                    }
+                }, 1000);
             };
 
             const reset = () => {
                 setCurrentQ(0);
                 setScore(0);
                 setShowResult(false);
-                // Simple re-render will keep the same questions, ideally we'd re-generate them.
+                generateQuestions();
             };
 
-            if (questions.length === 0) return <div>טוען חידון...</div>;
+            if (questions.length === 0) return <div className="text-center py-10">טוען חידון...</div>;
 
             return (
-                <div className="max-w-xl mx-auto bg-white rounded-3xl p-8 shadow-2xl fade-in text-center border-t-8 border-pastel-pink">
+                <div className="max-w-2xl mx-auto bg-white rounded-3xl p-6 md:p-10 shadow-2xl fade-in text-center border-t-8 border-pastel-pink relative overflow-hidden">
+                    {/* Visual Feedback Overlay */}
+                    {feedback === 'correct' && <div className="absolute inset-0 bg-green-500/20 z-10 flex items-center justify-center animate-pulse"><Icon name="check-circle" className="w-32 h-32 text-green-600 drop-shadow-lg" /></div>}
+                    {feedback === 'wrong' && <div className="absolute inset-0 bg-red-500/20 z-10 flex items-center justify-center animate-pulse"><Icon name="x-circle" className="w-32 h-32 text-red-600 drop-shadow-lg" /></div>}
+
                     <h2 className="text-3xl font-bold mb-6 text-pink-800"><Icon name="brain" className="inline mb-1"/> חידון בוטניקה מתקדם</h2>
                     
                     {!showResult ? (
                         <div>
-                            <p className="text-gray-500 mb-2">שאלה {currentQ + 1} מתוך {questions.length}</p>
-                            <h3 className="text-2xl font-bold text-gray-800 mb-8">{questions[currentQ].q}</h3>
-                            <div className="space-y-4">
+                            <div className="flex justify-between text-gray-500 mb-4 font-bold">
+                                <span>שאלה {currentQ + 1} מתוך {questions.length}</span>
+                                <span className="text-teal-600">ניקוד: {score}</span>
+                            </div>
+                            
+                            <div className="w-full h-40 md:h-56 mb-6 rounded-2xl overflow-hidden shadow-inner border border-gray-100">
+                                <img src={questions[currentQ].image} alt="Hint" className="w-full h-full object-cover blur-[2px] hover:blur-none transition-all duration-500" />
+                            </div>
+
+                            <h3 className="text-2xl font-bold text-gray-800 mb-8 leading-snug">{questions[currentQ].q}</h3>
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                                 {questions[currentQ].opts.map((opt, i) => (
                                     <button 
                                         key={i}
                                         onClick={() => handleAns(opt)}
-                                        className="w-full bg-pastel-blue hover:bg-teal-200 text-teal-900 font-bold py-4 rounded-3xl text-lg transition-colors shadow-sm"
+                                        disabled={feedback !== null}
+                                        className="w-full bg-pastel-blue hover:bg-teal-200 text-teal-900 font-bold py-4 px-4 rounded-3xl text-lg transition-all shadow-sm active:scale-95 disabled:opacity-50"
                                     >
                                         {opt}
                                     </button>
@@ -458,11 +504,14 @@
                             </div>
                         </div>
                     ) : (
-                        <div className="py-10">
-                            <h3 className="text-4xl font-bold text-teal-600 mb-4">סיימת! 🎉</h3>
-                            <p className="text-2xl mb-8">הציון שלך: {score} / {questions.length}</p>
-                            <button onClick={reset} className="bg-pink-500 hover:bg-pink-600 text-white font-bold py-3 px-8 rounded-full shadow-lg transition-all">
-                                נסה שוב
+                        <div className="py-10 fade-in">
+                            <Icon name="trophy" className="w-24 h-24 text-yellow-400 mx-auto mb-4" />
+                            <h3 className="text-4xl font-bold text-teal-600 mb-4">
+                                {score === questions.length ? 'מושלם! אתה פרופסור לבוטניקה 🎓' : score >= 3 ? 'כל הכבוד! יש לך אצבעות ירוקות 🌿' : 'אוי, אולי עדיף שתגדל קקטוסים מפלסטיק... 🌵'}
+                            </h3>
+                            <p className="text-2xl mb-8 font-bold text-gray-700">הציון הסופי שלך: {score} מתוך {questions.length}</p>
+                            <button onClick={reset} className="bg-pink-500 hover:bg-pink-600 text-white font-bold py-4 px-10 text-xl rounded-full shadow-lg transition-transform hover:scale-105 active:scale-95">
+                                שחק שוב! 🔄
                             </button>
                         </div>
                     )}
