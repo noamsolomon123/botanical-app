@@ -144,11 +144,18 @@
             const categories = ['הכל', ...new Set(plants.map(p => p.category))];
 
             const filteredPlants = useMemo(() => {
-                return plants.filter(p => {
+                let result = plants.filter(p => {
                     const matchSearch = p.name.includes(searchTerm) || p.scientificName.toLowerCase().includes(searchTerm.toLowerCase());
                     const matchCat = selectedCategory === 'הכל' || p.category === selectedCategory;
                     return matchSearch && matchCat;
                 });
+                
+                result.sort((a, b) => {
+                    if (a.category !== b.category) return a.category.localeCompare(b.category, 'he');
+                    return a.name.localeCompare(b.name, 'he');
+                });
+                
+                return result;
             }, [searchTerm, selectedCategory, plants]);
 
             return (
@@ -201,6 +208,70 @@
                     )}
 
                     <PlantModal plant={selectedPlant} onClose={() => setSelectedPlant(null)} />
+                </div>
+            );
+        };
+
+        const PlantSwipe = ({ plants }) => {
+            const [currentIndex, setCurrentIndex] = useState(0);
+            const [selectedPlant, setSelectedPlant] = useState(null);
+            const [animationDir, setAnimationDir] = useState('');
+
+            const handleLeft = () => {
+                setAnimationDir('-translate-x-full -rotate-12 opacity-0');
+                setTimeout(() => {
+                    setCurrentIndex(prev => (prev + 1) % plants.length);
+                    setAnimationDir('');
+                }, 300);
+            };
+
+            const handleRight = () => {
+                setSelectedPlant(plants[currentIndex]);
+            };
+
+            const handleCloseModal = () => {
+                setSelectedPlant(null);
+                setAnimationDir('translate-x-full rotate-12 opacity-0');
+                setTimeout(() => {
+                    setCurrentIndex(prev => (prev + 1) % plants.length);
+                    setAnimationDir('');
+                }, 300);
+            };
+
+            if (!plants || plants.length === 0) return <div>אין צמחים להצגה</div>;
+
+            const plant = plants[currentIndex];
+
+            return (
+                <div className="flex flex-col items-center justify-center py-10 fade-in overflow-hidden relative min-h-[600px]">
+                    <h2 className="text-3xl font-bold mb-6 text-pink-800"><Icon name="flame" className="inline mb-1"/> טינדר צמחים</h2>
+                    
+                    <div className={`relative w-full max-w-sm bg-white rounded-3xl shadow-2xl transition-all duration-300 transform ${animationDir} z-10`}>
+                        <div className="w-full h-80 rounded-t-3xl overflow-hidden relative">
+                            <img src={plant.imageUrl} alt={plant.name} className="w-full h-full object-cover select-none" draggable="false" />
+                            <div className="absolute top-4 right-4 bg-white/90 backdrop-blur-sm px-3 py-1 rounded-full text-2xl shadow-md">{plant.icon}</div>
+                        </div>
+                        <div className="p-6 text-center">
+                            <h3 className="text-3xl font-bold text-teal-900 mb-2">{plant.name}</h3>
+                            <p className="text-gray-500 text-lg mb-4">{plant.scientificName}</p>
+                            <span className="bg-pastel-pink text-pink-900 px-4 py-1 rounded-full font-bold text-sm shadow-sm">{plant.category}</span>
+                        </div>
+                        <div className="flex justify-center gap-12 p-6 pt-0 mt-2">
+                            <button onClick={handleLeft} className="w-16 h-16 bg-white border-2 border-red-200 text-red-500 rounded-full flex items-center justify-center hover:bg-red-50 hover:scale-110 transition-all shadow-lg active:scale-95">
+                                <Icon name="x" className="w-8 h-8" />
+                            </button>
+                            <button onClick={handleRight} className="w-16 h-16 bg-white border-2 border-green-200 text-green-500 rounded-full flex items-center justify-center hover:bg-green-50 hover:scale-110 transition-all shadow-lg active:scale-95">
+                                <Icon name="heart" className="w-8 h-8" />
+                            </button>
+                        </div>
+                    </div>
+                    
+                    {/* Background card to give a stack effect */}
+                    <div className="absolute w-full max-w-sm h-[500px] bg-white rounded-3xl shadow-md top-24 scale-95 opacity-50 z-0 border border-gray-100"></div>
+
+                    <p className="mt-8 text-gray-500 font-bold text-lg bg-white/80 px-6 py-2 rounded-full shadow-sm">החלק שמאלה להבא, ימינה כדי להתאהב (לגלות פרטים)! 💚</p>
+                    
+                    <PlantModal plant={selectedPlant} onClose={handleCloseModal} />
                 </div>
             );
         };
@@ -386,9 +457,12 @@
                         <p className="text-teal-200 text-lg">חקור, למד וגדל את הצמחים המיוחדים ביותר בעולם</p>
                     </header>
 
-                    <nav className="flex justify-center gap-4 mb-10 px-4">
+                    <nav className="flex justify-center gap-4 mb-10 px-4 flex-wrap">
                         <button onClick={() => setActiveTab('catalog')} className={`px-8 py-3 rounded-full font-bold transition-all shadow-md flex items-center gap-2 ${activeTab === 'catalog' ? 'bg-teal-600 text-white transform scale-105' : 'bg-white text-teal-800 hover:bg-teal-50'}`}>
                             <Icon name="library" /> קטלוג
+                        </button>
+                        <button onClick={() => setActiveTab('swipe')} className={`px-8 py-3 rounded-full font-bold transition-all shadow-md flex items-center gap-2 ${activeTab === 'swipe' ? 'bg-pink-500 text-white transform scale-105' : 'bg-white text-pink-600 hover:bg-pink-50'}`}>
+                            <Icon name="flame" /> היכרויות 
                         </button>
                         <button onClick={() => setActiveTab('simulator')} className={`px-8 py-3 rounded-full font-bold transition-all shadow-md flex items-center gap-2 ${activeTab === 'simulator' ? 'bg-teal-600 text-white transform scale-105' : 'bg-white text-teal-800 hover:bg-teal-50'}`}>
                             <Icon name="sprout" /> סימולטור
@@ -400,6 +474,7 @@
 
                     <main className="container mx-auto px-4">
                         {activeTab === 'catalog' && <PlantCatalog plants={plantDatabase} />}
+                        {activeTab === 'swipe' && <PlantSwipe plants={plantDatabase} />}
                         {activeTab === 'simulator' && <GrowthSimulator plants={plantDatabase} />}
                         {activeTab === 'trivia' && <AdvancedTrivia plants={plantDatabase} />}
                     </main>
