@@ -350,10 +350,79 @@
             };
 
             return (
-                <div className="max-w-2xl mx-auto bg-white rounded-3xl p-8 shadow-xl fade-in border-4 border-pastel-blue">
+                <div className="max-w-2xl mx-auto bg-white rounded-3xl p-8 shadow-xl fade-in border-4 border-pastel-blue relative">
+                    <style>{`
+                        .sprout-container {
+                            width: 200px;
+                            height: 250px;
+                            margin: 0 auto 20px auto;
+                            background-color: #f5f0e6; /* Beige background */
+                            border-radius: 20px;
+                            display: flex;
+                            align-items: flex-end;
+                            justify-content: center;
+                            padding-bottom: 20px;
+                            cursor: pointer;
+                            overflow: hidden;
+                        }
+
+                        /* Base states */
+                        .stem {
+                            transform-origin: bottom center;
+                            transition: transform 1s cubic-bezier(0.4, 0, 0.2, 1);
+                        }
+                        .leaf {
+                            transform: scale(0);
+                            transform-origin: bottom center;
+                            transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+                        }
+                        
+                        /* Hover states */
+                        .sprout-container:hover .stem {
+                            transform: scaleY(1.6);
+                        }
+                        .sprout-container:hover .leaf-1 {
+                            transform: scale(1);
+                            transition-delay: 0.3s;
+                        }
+                        .sprout-container:hover .leaf-2 {
+                            transform: scale(1);
+                            transition-delay: 0.6s;
+                        }
+                        .sprout-container:hover .leaf-3 {
+                            transform: scale(1);
+                            transition-delay: 0.9s;
+                        }
+                    `}</style>
+
                     <h2 className="text-3xl font-bold text-center mb-6 text-teal-800 flex justify-center gap-3">
                         <Icon name="flask-conical" /> סימולטור גידול בוטני
                     </h2>
+
+                    <div className="sprout-container shadow-inner">
+                        <svg viewBox="0 0 200 250" width="100%" height="100%">
+                            {/* Pot */}
+                            <path d="M 60 200 L 140 200 L 150 150 L 50 150 Z" fill="#e07a5f" /> {/* Terracotta */}
+                            <rect x="45" y="140" width="110" height="15" rx="5" fill="#d06a4f" />
+                            
+                            {/* Soil */}
+                            <ellipse cx="100" cy="140" rx="45" ry="8" fill="#4a3b32" />
+
+                            {/* Stem */}
+                            <path className="stem" d="M 100 140 Q 95 100 100 80" fill="none" stroke="#606c38" strokeWidth="6" strokeLinecap="round" />
+
+                            {/* Leaves */}
+                            <g className="leaf leaf-1" style={{ transformOrigin: '100px 120px' }}>
+                                <path d="M 100 120 Q 70 100 85 110 Q 95 115 100 120" fill="#81b29a" />
+                            </g>
+                            <g className="leaf leaf-2" style={{ transformOrigin: '100px 100px' }}>
+                                <path d="M 100 100 Q 130 80 115 90 Q 105 95 100 100" fill="#81b29a" />
+                            </g>
+                            <g className="leaf leaf-3" style={{ transformOrigin: '100px 80px' }}>
+                                <path d="M 100 80 Q 80 50 100 60 Q 105 70 100 80" fill="#81b29a" />
+                            </g>
+                        </svg>
+                    </div>
                     
                     <div className="mb-6">
                         <label className="block text-gray-700 font-bold mb-2">בחר צמח לניסוי:</label>
